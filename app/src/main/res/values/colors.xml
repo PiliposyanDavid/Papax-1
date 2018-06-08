@@ -3,4 +3,7 @@
 	<color name="colorPrimary">#3F51B5</color>
 	<color name="colorPrimaryDark">#303F9F</color>
 	<color name="colorAccent">#FF4081</color>
+	<color name="input_text_color">#A8B6C8</color>
+	<color name="white_transparent_66">#d5ffffff</color>
+	<color name="login_txt_color">#333333</color>
 </resources>
