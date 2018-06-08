@@ -1,17 +1,15 @@
 package adapter;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.View;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import fragments.HomeTabFragment;
 import fragments.LunchTabFragment;
 import fragments.WorkTabFragment;
 
-public class MainTabsPagerAdapter extends FragmentStatePagerAdapter {
+public class MainTabsPagerAdapter extends FragmentPagerAdapter {
 	private HomeTabFragment homeTabFragment;
 	private LunchTabFragment lunchTabFragment;
 	private WorkTabFragment workTabFragment;
@@ -75,8 +73,4 @@ public class MainTabsPagerAdapter extends FragmentStatePagerAdapter {
 		return super.getPageTitle(position);
 	}
 
-	@Override
-	public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-		return false;
-	}
 }
