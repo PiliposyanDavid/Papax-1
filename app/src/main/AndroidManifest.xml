@@ -17,8 +17,8 @@
 			</intent-filter>
 		</activity>
 
-		<activity android:name=".LoginActivity"/>
-		<activity android:name=".SignUpActivity"/>
+		<activity android:name=".LoginActivity" android:screenOrientation="sensorPortrait"/>
+		<activity android:name=".SignUpActivity" android:screenOrientation="sensorPortrait"/>
 	</application>
 
 </manifest>
