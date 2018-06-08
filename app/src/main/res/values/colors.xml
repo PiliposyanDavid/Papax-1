@@ -3,9 +3,10 @@
 	<color name="input_text_color">#A8B6C8</color>
 	<color name="white_transparent_66">#d5ffffff</color>
 	<color name="login_txt_color">#333333</color>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#348CCD</color>
-    <color name="colorAccent">#FFFFFF</color>
-    <color name="colorWhite70">#70FFFFFF</color>
-    <color name="colorWhite">#FFFFFF</color>
+	<color name="colorPrimary">#3F51B5</color>
+	<color name="colorPrimaryDark">#348CCD</color>
+	<color name="colorAccent">#FFFFFF</color>
+	<color name="colorWhite70">#70FFFFFF</color>
+	<color name="colorWhite">#FFFFFF</color>
+	<color name="windowBackgroundColor">#f2f2f2</color>
 </resources>

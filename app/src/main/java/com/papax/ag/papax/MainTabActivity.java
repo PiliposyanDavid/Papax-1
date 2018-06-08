@@ -81,6 +81,7 @@ public class MainTabActivity extends AppCompatActivity {
 	private void initPagerWithAdapter() {
 		adapter = new MainTabsPagerAdapter(getSupportFragmentManager());
 		pager.setAdapter(adapter);
+		pager.setOffscreenPageLimit(2);
 		pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
 			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
