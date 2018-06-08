@@ -1,6 +1,11 @@
 <resources>
 	<string name="app_name">Papax</string>
+	<string name="title_activity_maps">Map</string>
 	<string name="email">email</string>
 	<string name="login">Log In</string>
 	<string name="password">password</string>
+	<string name="log_in">Log in</string>
+	<string name="or">or</string>
+	<string name="register">Register</string>
+	<string name="privacy_policy">Privacy policy</string>
 </resources>
