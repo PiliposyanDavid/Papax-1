@@ -7,12 +7,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import adapter.MainTabsPagerAdapter;
 
 public class MainTabActivity extends AppCompatActivity {
 	private TabLayout slidingTabLayout;
 	private ViewPager pager;
 	private MainTabsPagerAdapter adapter;
+	private SimpleDraweeView avatarImage;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,10 +24,12 @@ public class MainTabActivity extends AppCompatActivity {
 
 		slidingTabLayout = findViewById(R.id.sliding_tabs);
 		pager = findViewById(R.id.pager);
+		avatarImage = findViewById(R.id.user_avatar_image);
 
 		initPagerWithAdapter();
 		initTabsAndAdd();
 		setupPagerWithTabs();
+		avatarImage.setImageURI("https://i.ytimg.com/vi/aaAty6HhN5c/hqdefault.jpg");
 
 	}
 
