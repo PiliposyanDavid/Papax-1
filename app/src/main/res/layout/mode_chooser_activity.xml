@@ -32,6 +32,28 @@
 			app:roundingBorderColor="@android:color/white"
 			app:roundingBorderWidth="2dp" />
 
+
+		<LinearLayout
+			android:id="@+id/linear_layout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="30dp"
+			android:gravity="center_horizontal"
+			android:orientation="horizontal"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/user_photo">
+
+			<include layout="@layout/driver_switcher" />
+
+			<Space
+				android:layout_width="16dp"
+				android:layout_height="wrap_content" />
+
+			<include layout="@layout/passenger_switch" />
+
+		</LinearLayout>
+
 		<android.support.constraint.ConstraintLayout
 			android:id="@+id/auth_container"
 			android:layout_width="325dp"
@@ -39,12 +61,12 @@
 			android:layout_marginBottom="56dp"
 			android:layout_marginEnd="8dp"
 			android:layout_marginStart="8dp"
-			android:layout_marginTop="44dp"
+			android:layout_marginTop="16dp"
 			android:background="@drawable/input_fields_background_white_container"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/user_photo">
+			app:layout_constraintTop_toBottomOf="@+id/linear_layout">
 
 			<EditText
 				android:id="@+id/user_email"

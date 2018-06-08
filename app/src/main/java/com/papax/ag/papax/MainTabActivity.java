@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -16,6 +17,7 @@ public class MainTabActivity extends AppCompatActivity {
 	private ViewPager pager;
 	private MainTabsPagerAdapter adapter;
 	private SimpleDraweeView avatarImage;
+	private SwipeRefreshLayout swipeRefreshLayout;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,11 +27,28 @@ public class MainTabActivity extends AppCompatActivity {
 		slidingTabLayout = findViewById(R.id.sliding_tabs);
 		pager = findViewById(R.id.pager);
 		avatarImage = findViewById(R.id.user_avatar_image);
+		swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+		swipeRefreshLayout.setNestedScrollingEnabled(true);
 
 		initPagerWithAdapter();
 		initTabsAndAdd();
 		setupPagerWithTabs();
 		avatarImage.setImageURI("https://i.ytimg.com/vi/aaAty6HhN5c/hqdefault.jpg");
+
+		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				// TODO: 6/8/18 do /rides request
+
+				swipeRefreshLayout.setRefreshing(true);
+				swipeRefreshLayout.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						swipeRefreshLayout.setRefreshing(false);
+					}
+				}, 1200);
+			}
+		});
 
 	}
 
@@ -62,6 +81,24 @@ public class MainTabActivity extends AppCompatActivity {
 	private void initPagerWithAdapter() {
 		adapter = new MainTabsPagerAdapter(getSupportFragmentManager());
 		pager.setAdapter(adapter);
+		pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+			}
+
+			@Override
+			public void onPageSelected(int position) {
+
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int state) {
+				if (swipeRefreshLayout != null) {
+					swipeRefreshLayout.setEnabled(state == ViewPager.SCROLL_STATE_IDLE);
+				}
+			}
+		});
 
 	}
 

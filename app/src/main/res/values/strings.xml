@@ -18,4 +18,8 @@
 	<string name="picsart">Picsart</string>
 	<string name="required_text">All fields are required</string>
 	<string name="something_is_wrong">Something is wrong</string>
+	<string name="driver">Driver</string>
+	<string name="passenger">Passenger</string>
+	<string name="edit">Edit</string>
+	<string name="i_am">I am</string>
 </resources>
