@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.papax.ag.papax.R;
+
 public class HomeTabFragment extends Fragment {
 
 	@Override
@@ -24,7 +26,7 @@ public class HomeTabFragment extends Fragment {
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return super.onCreateView(inflater, container, savedInstanceState);
+		return inflater.inflate(R.layout.home_tab_fragment_layout, container, false);
 	}
 
 
