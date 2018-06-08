@@ -1,4 +1,4 @@
-package com.papax.ag.papax;
+package utils;
 
 public class NetworkUtils {
 
