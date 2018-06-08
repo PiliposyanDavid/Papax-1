@@ -2,6 +2,7 @@
 	<string name="app_name">Papax</string>
 	<string name="title_activity_maps">Map</string>
 	<string name="email">email</string>
+	<string name="phone_gen">phone</string>
 	<string name="login">Log In</string>
 	<string name="password">password</string>
 	<string name="log_in">Log in</string>
@@ -15,4 +16,6 @@
 	<string name="add_regular_address">Add regular address</string>
 	<string name="phone">Phone</string>
 	<string name="picsart">Picsart</string>
+	<string name="required_text">All fields are required</string>
+	<string name="something_is_wrong">Something is wrong</string>
 </resources>

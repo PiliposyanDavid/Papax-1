@@ -45,15 +45,15 @@
 			app:layout_constraintTop_toTopOf="parent" />
 
 		<EditText
-			android:id="@+id/user_email"
+			android:id="@+id/user_phone"
 			style="@style/EditTextStyle"
 			android:layout_marginEnd="20dp"
 			android:layout_marginStart="20dp"
 			android:layout_marginTop="24dp"
 			android:drawablePadding="24dp"
 			android:drawableStart="@android:drawable/ic_partial_secure"
-			android:hint="@string/email"
-			android:inputType="textEmailAddress"
+			android:hint="@string/phone_gen"
+			android:inputType="phone"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -70,7 +70,7 @@
 			android:inputType="textPassword"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/user_email" />
+			app:layout_constraintTop_toBottomOf="@+id/user_phone" />
 
 		<android.support.v7.widget.AppCompatButton
 			android:id="@+id/login_btn"

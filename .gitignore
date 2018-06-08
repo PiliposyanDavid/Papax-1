@@ -13,7 +13,7 @@ local.properties
 # Signing files
 .signing/
 
-# User-specific configurations
+# model.User-specific configurations
 /.idea
 *.iml
 

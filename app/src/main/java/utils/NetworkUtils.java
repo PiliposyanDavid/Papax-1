@@ -2,7 +2,9 @@ package utils;
 
 public class NetworkUtils {
 
-	public static boolean isUserRegistered(){
+	public static final String BASE_URL = "http://api.picsartstage.com/consume/";
+
+	public static boolean isUserRegistered() {
 		return false;
 	}
 }
