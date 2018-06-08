@@ -14,7 +14,7 @@ public class SplashScreenActivity extends Activity {
 		setContentView(R.layout.splash_screen_activity_layout);
 		final Intent intent;
 		if (NetworkUtils.isUserRegistered()) {
-			intent = new Intent(this, MainActivity.class);
+			intent = new Intent(this, MainTabActivity.class);
 		} else {
 			intent = new Intent(this, LoginActivity.class);
 		}
