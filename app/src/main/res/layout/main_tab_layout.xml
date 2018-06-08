@@ -25,9 +25,9 @@
                                                    android:layout_gravity="end"
                                                    android:layout_marginEnd="18dp"
                                                    android:layout_marginTop="12dp"
-                                                   fresco:roundingBorderWidth="1dp"
+                                                   fresco:roundAsCircle="true"
                                                    fresco:roundingBorderColor="@color/colorWhite"
-                                                   fresco:roundAsCircle="true"/>
+                                                   fresco:roundingBorderWidth="1dp"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/sliding_tabs"
@@ -39,15 +39,21 @@
 
     </FrameLayout>
 
+    <android.support.v4.widget.SwipeRefreshLayout android:id="@+id/swipe_refresh_layout"
+                                                  android:layout_width="match_parent"
+                                                  android:layout_height="match_parent"
+                                                  android:layout_marginTop="108dp">
 
-    <android.support.v4.view.ViewPager android:id="@+id/pager"
-                                       android:layout_width="match_parent"
-                                       android:layout_height="match_parent"
-                                       android:layout_marginTop="108dp"
-                                       app:layout_constraintLeft_toLeftOf="parent"
-                                       app:layout_constraintTop_toBottomOf="@+id/actionbar_container"
-    >
 
-    </android.support.v4.view.ViewPager>
+        <android.support.v4.view.ViewPager android:id="@+id/pager"
+                                           android:layout_width="match_parent"
+                                           android:layout_height="match_parent"
+                                           app:layout_constraintLeft_toLeftOf="parent"
+                                           app:layout_constraintTop_toBottomOf="@+id/actionbar_container"
+        >
+
+        </android.support.v4.view.ViewPager>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.constraint.ConstraintLayout>
