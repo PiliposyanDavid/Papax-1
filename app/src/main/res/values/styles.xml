@@ -8,4 +8,29 @@
 		<item name="colorAccent">@color/colorAccent</item>
 	</style>
 
+	<style name="LightBlueButtonStyle" parent="@style/Widget.AppCompat.Button">
+		<item name="android:background">@drawable/light_button_bg</item>
+		<item name="android:layout_width">284dp</item>
+		<item name="android:layout_height">50dp</item>
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textAllCaps">false</item>
+		<item name="android:textSize">16sp</item>
+	</style>
+
+	<style name="DarkCapsuleButtonStyle" parent="@style/Widget.AppCompat.Button">
+		<item name="android:background">@drawable/dark_capsule_button_bg</item>
+		<item name="android:layout_width">284dp</item>
+		<item name="android:layout_height">50dp</item>
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textAllCaps">false</item>
+		<item name="android:textSize">16sp</item>
+	</style>
+
+	<style name="DarkButtonStyle" parent="@style/Widget.AppCompat.Button">
+		<item name="android:background">@drawable/dark_button_bg</item>
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textAllCaps">true</item>
+		<item name="android:textSize">16sp</item>
+	</style>
+
 </resources>
