@@ -19,6 +19,12 @@
 
 		<activity android:name=".LoginActivity" android:screenOrientation="sensorPortrait"/>
 		<activity android:name=".SignUpActivity" android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".MainTabActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/NoActionBarPrimary"
+        >
+
+        </activity>
 	</application>
 
 </manifest>

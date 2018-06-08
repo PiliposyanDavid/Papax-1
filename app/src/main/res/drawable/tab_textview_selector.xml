@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ (c) 2016 PicsArt, Inc.  All rights reserved.
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:color="#FFFFFF"/>
+    <item android:state_pressed="true" android:color="#FFFFFF"/>
+    <item android:color="#70FFFFFF"/>
+</selector>
