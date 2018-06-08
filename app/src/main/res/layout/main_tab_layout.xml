@@ -1,21 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <FrameLayout android:layout_width="match_parent"
+    <FrameLayout android:id="@+id/actionbar_container"
+                 android:layout_width="match_parent"
                  android:layout_height="108dp"
-                 android:id="@+id/actionbar_container"
                  android:background="@drawable/main_tab_bar_gradient">
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="24dp"
+                  android:layout_marginStart="24dp"
+                  android:layout_marginTop="18dp"
+                  android:text="Rides"
+                  android:textColor="@color/colorWhite"
+                  android:textSize="20sp"
+                  android:textStyle="bold"/>
+        <com.facebook.drawee.view.SimpleDraweeView android:id="@+id/user_avatar_image"
+                                                   android:layout_width="36dp"
+                                                   android:layout_height="39dp"
+                                                   android:layout_gravity="end"
+                                                   android:layout_marginEnd="18dp"
+                                                   android:layout_marginTop="12dp"
+                                                   fresco:roundingBorderWidth="1dp"
+                                                   fresco:roundingBorderColor="@color/colorWhite"
+                                                   fresco:roundAsCircle="true"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background = "#00000000"
-            app:tabIndicatorColor="#FFFF8C"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:background="#00000000"
+            app:tabIndicatorColor="#FFFF8C"/>
 
     </FrameLayout>
 

@@ -5,6 +5,7 @@
 	<string name="login">Log In</string>
 	<string name="password">password</string>
 	<string name="log_in">Log in</string>
+	<string name="sign_up">Sign up</string>
 	<string name="or">or</string>
 	<string name="register">Register</string>
 	<string name="privacy_policy">Privacy policy</string>
@@ -12,4 +13,6 @@
 	<string name="start_carpool">Start Carpool</string>
 	<string name="name">Name</string>
 	<string name="add_regular_address">Add regular address</string>
+	<string name="phone">Phone</string>
+	<string name="picsart">Picsart</string>
 </resources>

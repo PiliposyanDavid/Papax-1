@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 
+import utils.NetworkUtils;
+
 public class SplashScreenActivity extends Activity {
 
 	@Override
@@ -22,6 +24,7 @@ public class SplashScreenActivity extends Activity {
 			@Override
 			public void run() {
 				startActivity(intent);
+				finish();
 			}
 		},1000);
 
