@@ -30,39 +30,10 @@ public class MainTabActivity extends AppCompatActivity {
 
 
 	private void initTabsAndAdd() {
-		TabLayout.Tab toWorkTab = slidingTabLayout.newTab();
-		toWorkTab.setText("To Work");
-		TabLayout.Tab toLunchTab = slidingTabLayout.newTab();
-		toLunchTab.setText("Lunch");
-		TabLayout.Tab toHomeTab = slidingTabLayout.newTab();
-		toHomeTab.setText("To Home");
-		slidingTabLayout.addTab(toWorkTab);
-		slidingTabLayout.addTab(toLunchTab);
-		slidingTabLayout.addTab(toHomeTab);
-
 		slidingTabLayout.setTabTextColors(ContextCompat.getColor(this, R.color.colorWhite70), ContextCompat.getColor(this, R.color.colorWhite));
-
-
 	}
 
 	private void setupPagerWithTabs() {
-		pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-			@Override
-			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-				slidingTabLayout.scrollBy(positionOffsetPixels, 0);
-			}
-
-			@Override
-			public void onPageSelected(int position) {
-				slidingTabLayout.getTabAt(position).select();
-			}
-
-			@Override
-			public void onPageScrollStateChanged(int state) {
-
-			}
-		});
-
 		slidingTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 			@Override
 			public void onTabSelected(TabLayout.Tab tab) {
@@ -79,6 +50,7 @@ public class MainTabActivity extends AppCompatActivity {
 
 			}
 		});
+		slidingTabLayout.setupWithViewPager(pager);
 	}
 
 
