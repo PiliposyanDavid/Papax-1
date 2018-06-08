@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@drawable/login_background_img">
@@ -12,7 +11,7 @@
 		android:layout_height="24dp"
 		android:layout_marginEnd="8dp"
 		android:layout_marginStart="8dp"
-		android:layout_marginTop="16dp"
+		android:layout_marginTop="44dp"
 		android:background="@color/input_text_color"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +35,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="16dp"
 			android:layout_marginStart="16dp"
-			android:layout_marginTop="24dp"
+			android:layout_marginTop="21dp"
 			android:fontFamily="sans-serif-medium"
 			android:text="@string/login"
 			android:textColor="@color/login_txt_color"
@@ -48,9 +47,9 @@
 		<EditText
 			android:id="@+id/user_email"
 			style="@style/EditTextStyle"
-			android:layout_marginEnd="16dp"
-			android:layout_marginStart="16dp"
-			android:layout_marginTop="32dp"
+			android:layout_marginEnd="20dp"
+			android:layout_marginStart="20dp"
+			android:layout_marginTop="24dp"
 			android:drawablePadding="24dp"
 			android:drawableStart="@android:drawable/ic_partial_secure"
 			android:hint="@string/email"
@@ -62,8 +61,8 @@
 		<EditText
 			android:id="@+id/user_password"
 			style="@style/EditTextStyle"
-			android:layout_marginEnd="16dp"
-			android:layout_marginStart="16dp"
+			android:layout_marginEnd="20dp"
+			android:layout_marginStart="20dp"
 			android:layout_marginTop="16dp"
 			android:drawablePadding="24dp"
 			android:drawableStart="@android:drawable/ic_partial_secure"
@@ -77,8 +76,8 @@
 			android:id="@+id/login_btn"
 			style="@style/LightBlueButtonStyle"
 			android:layout_width="0dp"
-			android:layout_marginEnd="16dp"
-			android:layout_marginStart="16dp"
+			android:layout_marginEnd="20dp"
+			android:layout_marginStart="20dp"
 			android:layout_marginTop="20dp"
 			android:text="@string/log_in"
 			app:layout_constraintEnd_toEndOf="parent"
@@ -129,15 +128,18 @@
 		</android.support.constraint.ConstraintLayout>
 
 		<android.support.v7.widget.AppCompatButton
+			android:id="@+id/sign_up_btn"
 			style="@style/DarkCapsuleButtonStyle"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="38dp"
-			android:layout_marginEnd="16dp"
-			android:layout_marginStart="16dp"
+			android:layout_marginEnd="20dp"
+			android:layout_marginStart="20dp"
 			android:layout_marginTop="28dp"
 			android:text="@string/register"
 			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toBottomOf="@+id/or_text_container" />
 
 	</android.support.constraint.ConstraintLayout>
