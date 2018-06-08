@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="108dp"
+                 android:id="@+id/actionbar_container"
+                 android:background="@drawable/main_tab_bar_gradient">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/sliding_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background = "#00000000"
+            app:tabIndicatorColor="#FFFF8C"
+            android:layout_gravity="bottom"/>
+
+    </FrameLayout>
+
+
+    <android.support.v4.view.ViewPager android:id="@+id/pager"
+                                       android:layout_width="match_parent"
+                                       android:layout_height="match_parent"
+                                       android:layout_marginTop="108dp"
+                                       app:layout_constraintLeft_toLeftOf="parent"
+                                       app:layout_constraintTop_toBottomOf="@+id/actionbar_container"
+    >
+
+    </android.support.v4.view.ViewPager>
+
+</android.support.constraint.ConstraintLayout>
