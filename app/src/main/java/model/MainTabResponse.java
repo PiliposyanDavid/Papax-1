@@ -12,7 +12,7 @@ public class MainTabResponse {
 	@SerializedName("message")
 	public String message;
 
-	@SerializedName("data")
+	@SerializedName("driverData")
 	public List<JsonObject> data;
 
 	@Nullable

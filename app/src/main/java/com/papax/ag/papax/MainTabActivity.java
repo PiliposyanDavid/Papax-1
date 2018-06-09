@@ -41,7 +41,9 @@ public class MainTabActivity extends AppCompatActivity {
 
 		User user = UserUtil.getInstance().getUser(this);
 		adapter.setUserTypeIsPassanger(!user.isDriver());
-
+		if (adapter != null) {
+			adapter.updateTabsWithData(new MainTabResponse()); //// TODO: 6/8/18  change to response
+		}
 
 		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
