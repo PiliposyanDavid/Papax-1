@@ -16,9 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
 
 import api.UserApi;
 import model.Car;
@@ -30,6 +28,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import utils.NetworkUtils;
+import utils.UserUtil;
 
 public class ModeChooserActivity extends Activity {
 
@@ -92,6 +91,7 @@ public class ModeChooserActivity extends Activity {
 		carNumber.addTextChangedListener(textWatcher);
 		carColor.addTextChangedListener(textWatcher);
 		carSeatsCount.addTextChangedListener(textWatcher);
+		Gson gson = new Gson();
 
 		title = findViewById(R.id.textView);
 
@@ -131,12 +131,16 @@ public class ModeChooserActivity extends Activity {
 					}
 				});
 			} else {
-				Call<UserResult> messages = userApi.passengerSignUp("blank", userName.getText().toString(), userEmal, userPassword, userPhone, homeLocation);
+
+				String loc = gson.toJson(homeLocation);
+
+				Call<UserResult> messages = userApi.passengerSignUp("blank", userName.getText().toString(), userEmal, userPassword, userPhone, loc);
 				messages.enqueue(new Callback<UserResult>() {
 					@Override
 					public void onResponse(Call<UserResult> call, Response<UserResult> response) {
 						if (response.body() != null) {
 							if (response.body().isSuccessful()) {
+								UserUtil.getInstance().writeToFile(new Gson().toJson(response.body().user), ModeChooserActivity.this);
 								openMainTabActivity();
 							} else {
 								Toast.makeText(ModeChooserActivity.this, response.body().message, Toast.LENGTH_SHORT).show();

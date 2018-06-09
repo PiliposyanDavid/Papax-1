@@ -16,7 +16,7 @@ public class SplashScreenActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen_activity_layout);
 		final Intent intent;
-		if (UserUtil.getInstance().getUser(this) !=null) {
+		if (UserUtil.getInstance().getUser(this) != null) {
 			intent = new Intent(this, MainTabActivity.class);
 		} else {
 			intent = new Intent(this, LoginActivity.class);
