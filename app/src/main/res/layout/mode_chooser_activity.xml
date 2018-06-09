@@ -69,7 +69,7 @@
 			app:layout_constraintTop_toBottomOf="@+id/linear_layout">
 
 			<EditText
-				android:id="@+id/user_email"
+				android:id="@+id/user_name"
 				style="@style/EditTextStyle"
 				android:layout_marginEnd="16dp"
 				android:layout_marginStart="16dp"
@@ -94,7 +94,7 @@
 				android:textSize="14sp"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/user_email" />
+				app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
 			<TextView
 				android:id="@+id/textView"
@@ -110,34 +110,34 @@
 				app:layout_constraintTop_toBottomOf="@+id/add_location" />
 
 			<EditText
-				android:id="@+id/car_info_1"
+				android:id="@+id/car_number"
 				style="@style/EditTextStyle"
 				android:layout_marginEnd="16dp"
 				android:layout_marginStart="16dp"
 				android:layout_marginTop="16dp"
 				android:drawablePadding="24dp"
 				android:drawableStart="@android:drawable/ic_partial_secure"
-				android:inputType="textPassword"
+				android:inputType="text"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 			<EditText
-				android:id="@+id/car_info_2"
+				android:id="@+id/car_color"
 				style="@style/EditTextStyle"
 				android:layout_marginEnd="16dp"
 				android:layout_marginStart="16dp"
 				android:layout_marginTop="16dp"
 				android:drawablePadding="24dp"
 				android:drawableStart="@android:drawable/ic_partial_secure"
-				android:inputType="textPassword"
+				android:inputType="text"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/car_info_1" />
+				app:layout_constraintTop_toBottomOf="@+id/car_number" />
 
 
 			<EditText
-				android:id="@+id/car_info_3"
+				android:id="@+id/car_model"
 				style="@style/EditTextStyle"
 				android:layout_marginEnd="16dp"
 				android:layout_marginStart="16dp"
@@ -147,21 +147,21 @@
 				android:inputType="textPassword"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/car_info_2" />
+				app:layout_constraintTop_toBottomOf="@+id/car_color" />
 
 
 			<EditText
-				android:id="@+id/car_info_4"
+				android:id="@+id/car_seats_count"
 				style="@style/EditTextStyle"
 				android:layout_marginEnd="16dp"
 				android:layout_marginStart="16dp"
 				android:layout_marginTop="16dp"
 				android:drawablePadding="24dp"
 				android:drawableStart="@android:drawable/ic_partial_secure"
-				android:inputType="textPassword"
+				android:inputType="number"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/car_info_3" />
+				app:layout_constraintTop_toBottomOf="@+id/car_model" />
 
 			<android.support.v7.widget.AppCompatButton
 				android:id="@+id/start_carpool_btn"
@@ -170,12 +170,12 @@
 				android:layout_marginEnd="16dp"
 				android:layout_marginStart="16dp"
 				android:layout_marginTop="16dp"
-				android:enabled="false"
+				android:enabled="true"
 				android:text="@string/start_carpool"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/car_info_4" />
+				app:layout_constraintTop_toBottomOf="@+id/car_seats_count" />
 
 		</android.support.constraint.ConstraintLayout>
 

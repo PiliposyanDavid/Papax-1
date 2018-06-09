@@ -81,7 +81,7 @@
             android:layout_marginTop="16dp"
             android:drawablePadding="24dp"
             android:drawableStart="@android:drawable/ic_partial_secure"
-            android:editable="false"
+            android:enabled="false"
             android:hint="@string/picsart"
             android:inputType="textPostalAddress"
             app:layout_constraintEnd_toEndOf="parent"

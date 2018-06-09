@@ -22,7 +22,13 @@ public class User {
 	HomeLocation homeLocation;
 
 	@SerializedName("type")
-	 String type;
+	String type;
+
+	@SerializedName("isActive")
+	boolean isActive;
+
+	@SerializedName("car")
+	Car car;
 
 	public boolean isDriver() {
 		return PASSENGER.equals(type);

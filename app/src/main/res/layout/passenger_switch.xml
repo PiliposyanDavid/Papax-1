@@ -3,7 +3,7 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="wrap_content"
 	android:layout_height="50dp"
-	android:id="@+id/switcher_bg_view"
+	android:id="@+id/passenger_tab"
 	android:background="@drawable/switcher_bg_selector">
 
 	<android.support.v7.widget.AppCompatImageView

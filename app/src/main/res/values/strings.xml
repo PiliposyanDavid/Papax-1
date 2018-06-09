@@ -22,4 +22,5 @@
 	<string name="passenger">Passenger</string>
 	<string name="edit">Edit</string>
 	<string name="i_am">I am</string>
+	<string name="no_picsart_employee">You must be Picsart employee</string>
 </resources>
