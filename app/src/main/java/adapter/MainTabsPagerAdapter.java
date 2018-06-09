@@ -33,6 +33,16 @@ public class MainTabsPagerAdapter extends FragmentPagerAdapter {
 		if (lunchTabFragment != null) {
 			lunchTabFragment.onDataUpdated(response);
 		}
+
+		if (driverWorkTabFragment != null) {
+			driverWorkTabFragment.onDataUpdated(response);
+		}
+		if (driverHomeTabFragment != null) {
+			driverHomeTabFragment.onDataUpdated(response);
+		}
+		if (driverLunchTabFragment != null) {
+			driverLunchTabFragment.onDataUpdated(response);
+		}
 	}
 
 	public void setUserTypeIsPassanger(boolean isPassanger) {
