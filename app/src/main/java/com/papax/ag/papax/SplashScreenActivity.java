@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import utils.NetworkUtils;
+import utils.UserUtil;
 
 public class SplashScreenActivity extends Activity {
 
@@ -15,7 +16,7 @@ public class SplashScreenActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen_activity_layout);
 		final Intent intent;
-		if (NetworkUtils.isUserRegistered()) {
+		if (UserUtil.getInstance().getUser(this) !=null) {
 			intent = new Intent(this, MainTabActivity.class);
 		} else {
 			intent = new Intent(this, LoginActivity.class);
@@ -27,6 +28,5 @@ public class SplashScreenActivity extends Activity {
 				finish();
 			}
 		},1000);
-
 	}
 }
