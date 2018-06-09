@@ -184,11 +184,43 @@ public class DriverWorkTabFragment extends Fragment implements OnMapReadyCallbac
 	public void onDataUpdated(MainTabResponse mainTabResponse) {
 		if (getView() != null) {
 			getView().post(() -> {
+				if (mainTabResponse != null) {
+					switch (tabPosition) {
+						case 0: {
+							if (mainTabResponse.getToWorkData() != null) {
+//								generateRideSuggestionsFrom(mainTabResponse.getToWorkData());
+							} else {
+//								generateNoData();
+							}
+							break;
+						}
+						case 1: {
+							if (mainTabResponse.getLunchData() != null) {
+//								generateRideSuggestionsFrom(mainTabResponse.getLunchData());
+							} else {
+//								generateNoData();
+							}
+							break;
+						}
+						case 2: {
+							if (mainTabResponse.getLunchData() != null) {
+//								generateRideSuggestionsFrom(mainTabResponse.getLunchData());
+							} else {
+//								generateNoData();
+							}
+							break;
+						}
+					}
+				}
 
 				LocationManager locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
 				LocationUtils.getCurrentLocation(locationManager, mLocationListener);
 			});
 		}
+
+	}
+
+	public void generateRideSuggestionsFrom() {
 
 	}
 
