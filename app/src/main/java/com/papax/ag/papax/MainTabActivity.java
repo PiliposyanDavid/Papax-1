@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import adapter.MainTabsPagerAdapter;
+import model.MainTabResponse;
+import model.User;
+import utils.UserUtil;
 
 public class MainTabActivity extends AppCompatActivity {
 	private TabLayout slidingTabLayout;
@@ -35,6 +38,11 @@ public class MainTabActivity extends AppCompatActivity {
 		setupPagerWithTabs();
 		avatarImage.setImageURI("https://i.ytimg.com/vi/aaAty6HhN5c/hqdefault.jpg");
 
+
+		User user = UserUtil.getInstance().getUser(this);
+		adapter.setUserTypeIsPassanger(!user.isDriver());
+
+
 		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
@@ -45,6 +53,9 @@ public class MainTabActivity extends AppCompatActivity {
 					@Override
 					public void run() {
 						swipeRefreshLayout.setRefreshing(false);
+						if (adapter != null) {
+							adapter.updateTabsWithData(new MainTabResponse()); //// TODO: 6/8/18  change to response
+						}
 					}
 				}, 1200);
 			}

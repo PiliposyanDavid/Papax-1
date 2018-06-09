@@ -4,12 +4,11 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,6 @@ import com.papax.ag.papax.view.LocationSelectView;
 
 import java.util.List;
 
-import adapter.TabCardViewAdapter;
 import api.MapsApi;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -44,8 +42,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import utils.LocationUtils;
 
+import static android.content.Context.LOCATION_SERVICE;
+
 @SuppressLint("CheckResult")
-public class WorkTabFragment extends Fragment implements OnMapReadyCallback, TabFragmentDataInterface {
+public class DriverWorkTabFragment extends Fragment implements OnMapReadyCallback, TabFragmentDataInterface {
 
 	private MapsApi mapsApi;
 	private LocationSelectView startLocation, endLocation;
@@ -55,11 +55,10 @@ public class WorkTabFragment extends Fragment implements OnMapReadyCallback, Tab
 			.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 			.addConverterFactory(GsonConverterFactory.create()).build();
 
-	private RecyclerView recyclerView;
-//	private View noDataDriverRideRootView;
+
 	private ProgressBar progressBar;
-	private LocationSelectView selectStarLocationView;
-	private RecyclerViewItemDecoration itemDecoration = new RecyclerViewItemDecoration();
+//	private LocationSelectView selectStarLocationView;
+
 	private int tabPosition;
 
 	private final LocationListener mLocationListener = new LocationListener() {
@@ -141,42 +140,34 @@ public class WorkTabFragment extends Fragment implements OnMapReadyCallback, Tab
 		super.onActivityCreated(savedInstanceState);
 		SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
 				.findFragmentById(R.id.map);
-//		mapFragment.getMapAsync(this);
+		mapFragment.getMapAsync(this);
 	}
 
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.work_tab_fragment_layout, container, false);
+		return inflater.inflate(R.layout.driver_work_tab_fragment_layout, container, false);
 	}
 
 
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		recyclerView = view.findViewById(R.id.tab_recycler_view);
-		recyclerView.removeItemDecoration(itemDecoration);
-		recyclerView.addItemDecoration(itemDecoration);
 		progressBar = view.findViewById(R.id.progress);
 		progressBar.setVisibility(View.VISIBLE);
-//		noDataDriverRideRootView.setVisibility(View.GONE);
-		recyclerView.setVisibility(View.GONE);
-//		selectStarLocationView = view.findViewById(R.id.select_location);
-		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-		recyclerView.setAdapter(new TabCardViewAdapter());
+		startLocation = view.findViewById(R.id.start_location);
+//		selectStarLocationView = view.findViewById(R.id.selec)
+		endLocation = view.findViewById(R.id.end_location);
+		endLocation.setLocationText("Picsart");
+		endLocation.setEditable(false);
+		startLocation.setProgressMode(true);
+		startLocation.setOnEditClickListener(v -> {
 
-//		startLocation = view.findViewById(R.id.start_location);
-//		endLocation = view.findViewById(R.id.end_location);
-//		endLocation.setLocationText("Picsart");
-//		endLocation.setEditable(false);
-//		startLocation.setProgressMode(true);
-//		startLocation.setOnEditClickListener(v -> {
-//
-//		});
-//
-//		endLocation.setOnEditClickListener(v -> {
+		});
 
-//		});
+		endLocation.setOnEditClickListener(v -> {
+
+		});
 	}
 
 	@Override
@@ -193,61 +184,20 @@ public class WorkTabFragment extends Fragment implements OnMapReadyCallback, Tab
 	public void onDataUpdated(MainTabResponse mainTabResponse) {
 		if (getView() != null) {
 			getView().post(() -> {
-				if (mainTabResponse != null) {
-					switch (tabPosition) {
-						case 0: {
-							if (mainTabResponse.getToWorkData() != null) {
-//								generateRideSuggestionsFrom(mainTabResponse.getToWorkData());
-							} else {
-//								generateNoData();
-							}
-							break;
-						}
-						case 1: {
-							if (mainTabResponse.getLunchData() != null) {
-//								generateRideSuggestionsFrom(mainTabResponse.getLunchData());
-							} else {
-//								generateNoData();
-							}
-							break;
-						}
-						case 2: {
-							if (mainTabResponse.getLunchData() != null) {
-//								generateRideSuggestionsFrom(mainTabResponse.getLunchData());
-							} else {
-//								generateNoData();
-							}
-							break;
-						}
-					}
-				}
-				recyclerView.setVisibility(View.VISIBLE);
-//				selectStarLocationView.setVisibility(View.VISIBLE);
-//				noDataDriverRideRootView.setVisibility(View.GONE);
-				progressBar.setVisibility(View.GONE);
 
-				/*if (mainTabResponse != null && mainTabResponse.getToWorkData() != null) {
-					recyclerView.setVisibility(View.VISIBLE);
-					noDataDriverRideRootView.setVisibility(View.GONE);
-					selectStarLocationView.setVisibility(View.VISIBLE);
-					progressBar.setVisibility(View.GONE);
-					recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-					recyclerView.setAdapter(new TabCardViewAdapter());
-				} else {
-					LocationManager locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
-					LocationUtils.getCurrentLocation(locationManager, mLocationListener);
-				}*/
+				LocationManager locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+				LocationUtils.getCurrentLocation(locationManager, mLocationListener);
 			});
 		}
 
 	}
 
+	public void setTabPosition(int pos) {
+		this.tabPosition = pos;
+	}
+
 	@Override
 	public void setUserTypeIsPassanger(boolean isPassanger) {
 
-	}
-
-	public void setTabPosition(int pos) {
-		this.tabPosition = pos;
 	}
 }
