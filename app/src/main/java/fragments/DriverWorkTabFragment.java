@@ -1,6 +1,7 @@
 package fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -27,25 +28,32 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
 import com.papax.ag.papax.Constants;
+import com.papax.ag.papax.CreateRouteActivity;
 import com.papax.ag.papax.R;
 import com.papax.ag.papax.view.LocationSelectView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import api.MapsApi;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import model.Directions;
 import model.MainTabResponse;
+import model.Route;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import utils.LocationUtils;
 
 import static android.content.Context.LOCATION_SERVICE;
+import static utils.MapUtils.getCameraUpdate;
 
 @SuppressLint("CheckResult")
 public class DriverWorkTabFragment extends Fragment implements OnMapReadyCallback, TabFragmentDataInterface {
+
+	private static final int OPEN_ROUTE_CHOOSE_ACTIVITY = 1111;
 
 	private MapsApi mapsApi;
 	private LocationSelectView startLocation, endLocation;
@@ -57,6 +65,12 @@ public class DriverWorkTabFragment extends Fragment implements OnMapReadyCallbac
 
 
 	private ProgressBar progressBar;
+	private TextView plusButton, seatsCount;
+	private Location currentLocation;
+	private String firstRoutePolyLine;
+	private Directions directions;
+	private int seatsCounter;
+
 //	private LocationSelectView selectStarLocationView;
 
 	private int tabPosition;
@@ -65,6 +79,7 @@ public class DriverWorkTabFragment extends Fragment implements OnMapReadyCallbac
 
 		@Override
 		public void onLocationChanged(final Location location) {
+			currentLocation = location;
 			if (startLocation != null) {
 				Single.just(LocationUtils.getLocationFromGeocoder(
 						getActivity(),
@@ -74,7 +89,7 @@ public class DriverWorkTabFragment extends Fragment implements OnMapReadyCallbac
 						.subscribe(o -> {
 							if (startLocation != null) {
 								startLocation.setProgressMode(false);
-								startLocation.setLocationText(o.getThoroughfare() + ", " + o.getSubThoroughfare());
+								startLocation.setLocationText(o.getThoroughfare() + (o.getSubThoroughfare() == null ? "" : ", " + o.getSubThoroughfare()));
 							}
 
 							if (googleMap != null) {
@@ -109,9 +124,19 @@ public class DriverWorkTabFragment extends Fragment implements OnMapReadyCallbac
 				Constants.PICSART_LATITUDE + "," + Constants.PICSART_LONGITUDE).subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread()).subscribe(directions -> {
 			if (directions != null && directions.routes != null && !directions.routes.isEmpty() && directions.routes.get(0) != null) {
+				this.directions = directions;
+				firstRoutePolyLine = directions.routes.get(0).polyLine.points;
 				List<LatLng> latLngList = PolyUtil.decode(directions.routes.get(0).polyLine.points);
+
+				googleMap.clear();
 				googleMap.addPolyline(new PolylineOptions().addAll(latLngList).color(Color.parseColor("#42BFEA")));
 				googleMap.moveCamera(getCameraUpdate(latLngList));
+
+				googleMap.addMarker(new MarkerOptions().position(latLngList.get(0)))
+						.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker_bitmap));
+				googleMap.addMarker(new MarkerOptions().position(latLngList.get(latLngList.size() - 1)))
+						.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker_bitmap));
+
 			}
 		});
 	}
@@ -168,6 +193,22 @@ public class DriverWorkTabFragment extends Fragment implements OnMapReadyCallbac
 		endLocation.setOnEditClickListener(v -> {
 
 		});
+
+		seatsCount = view.findViewById(R.id.seat_count);
+		plusButton = view.findViewById(R.id.plus_btn);
+		minusBtn = view.findViewById(R.id.minus_btn);
+
+		minusBtn.setOnClickListener(v -> {
+			if (seatsCounter > 0) {
+				seatsCounter--;
+				seatsCount.setText(String.valueOf(seatsCounter));
+			}
+		});
+
+		plusButton.setOnClickListener(v -> {
+			seatsCounter++;
+			seatsCount.setText(String.valueOf(seatsCounter));
+		});
 	}
 
 	@Override
@@ -175,6 +216,22 @@ public class DriverWorkTabFragment extends Fragment implements OnMapReadyCallbac
 		this.googleMap = googleMap;
 		googleMap.getUiSettings().setScrollGesturesEnabled(false);
 		googleMap.setOnMapClickListener(latLng -> {
+
+			ArrayList<String> directionsPolyLines = new ArrayList<>();
+			ArrayList<String> tabsArrayList = new ArrayList<>();
+			for (Route route : directions.routes) {
+				directionsPolyLines.add(route.polyLine.points);
+				tabsArrayList.add(route.legs.get(0).duration.duration);
+			}
+
+			Intent intent = new Intent(getActivity(), CreateRouteActivity.class);
+			intent.putExtra(Constants.ORIGIN_LATITUDE, currentLocation.getLatitude());
+			intent.putExtra(Constants.ORIGIN_LONGITUDE, currentLocation.getAltitude());
+			intent.putStringArrayListExtra(Constants.POLYLINE_PATH, directionsPolyLines);
+			intent.putExtra(Constants.START_LOCATION_NAME, startLocation.getLocationText());
+			intent.putStringArrayListExtra("tabs", tabsArrayList);
+			intent.putExtra(Constants.END_LOCATION_NAME, endLocation.getLocationText());
+			startActivityForResult(intent, OPEN_ROUTE_CHOOSE_ACTIVITY);
 
 		});
 	}
@@ -184,7 +241,6 @@ public class DriverWorkTabFragment extends Fragment implements OnMapReadyCallbac
 	public void onDataUpdated(MainTabResponse mainTabResponse) {
 		if (getView() != null) {
 			getView().post(() -> {
-
 				LocationManager locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
 				LocationUtils.getCurrentLocation(locationManager, mLocationListener);
 			});

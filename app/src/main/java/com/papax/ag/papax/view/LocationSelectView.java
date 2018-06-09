@@ -55,4 +55,8 @@ public class LocationSelectView extends ConstraintLayout {
 	public void setLocationText(String text) {
 		locationTextView.setText(text);
 	}
+
+	public String getLocationText() {
+		return locationTextView.getText().toString();
+	}
 }

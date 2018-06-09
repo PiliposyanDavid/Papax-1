@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_activty_layout);
+		openMainTabActivity();
 
 		somethingIsWrongMessage = getResources().getString(R.string.something_is_wrong);
 		requiredMessage = getResources().getString(R.string.required_text);

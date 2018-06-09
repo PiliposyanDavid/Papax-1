@@ -1,6 +1,7 @@
 package fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -16,21 +17,20 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
 import com.papax.ag.papax.Constants;
+import com.papax.ag.papax.CreateRouteActivity;
 import com.papax.ag.papax.R;
 import com.papax.ag.papax.view.LocationSelectView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import adapter.TabCardViewAdapter;
@@ -39,109 +39,35 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import model.MainTabResponse;
+import model.Directions;
+import model.Route;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import utils.LocationUtils;
 
-@SuppressLint("CheckResult")
-public class WorkTabFragment extends Fragment implements OnMapReadyCallback, TabFragmentDataInterface {
+import static android.content.Context.LOCATION_SERVICE;
+import static utils.MapUtils.getCameraUpdate;
 
-	private MapsApi mapsApi;
-	private LocationSelectView startLocation, endLocation;
-	private TextView minusBtn;
-	private Retrofit retrofit = new Retrofit.Builder()
-			.baseUrl("https://maps.googleapis.com/maps/")
-			.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-			.addConverterFactory(GsonConverterFactory.create()).build();
+@SuppressLint("CheckResult")
+public class WorkTabFragment extends Fragment implements TabFragmentDataInterface {
 
 	private RecyclerView recyclerView;
-//	private View noDataDriverRideRootView;
 	private ProgressBar progressBar;
-	private LocationSelectView selectStarLocationView;
 	private RecyclerViewItemDecoration itemDecoration = new RecyclerViewItemDecoration();
 	private int tabPosition;
 
-	private final LocationListener mLocationListener = new LocationListener() {
-
-		@Override
-		public void onLocationChanged(final Location location) {
-			if (startLocation != null) {
-				Single.just(LocationUtils.getLocationFromGeocoder(
-						getActivity(),
-						location.getLatitude(),
-						location.getLongitude(), 1).get(0)).subscribeOn(Schedulers.io())
-						.observeOn(AndroidSchedulers.mainThread())
-						.subscribe(o -> {
-							if (startLocation != null) {
-								startLocation.setProgressMode(false);
-								startLocation.setLocationText(o.getThoroughfare() + ", " + o.getSubThoroughfare());
-							}
-
-							if (googleMap != null) {
-								googleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())))
-										.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker_bitmap));
-								googleMap.addMarker(new MarkerOptions().position(new LatLng(Constants.PICSART_LATITUDE, Constants.PICSART_LONGITUDE)))
-										.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.mapmarker_bitmap));
-								getDirections(location);
-							}
-						});
-			}
-		}
-
-		@Override
-		public void onStatusChanged(String provider, int status, Bundle extras) {
-
-		}
-
-		@Override
-		public void onProviderEnabled(String provider) {
-
-		}
-
-		@Override
-		public void onProviderDisabled(String provider) {
-
-		}
-	};
-
-	private void getDirections(Location location) {
-		mapsApi.getDirections(location.getLatitude() + "," + location.getLongitude(),
-				Constants.PICSART_LATITUDE + "," + Constants.PICSART_LONGITUDE).subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread()).subscribe(directions -> {
-			if (directions != null && directions.routes != null && !directions.routes.isEmpty() && directions.routes.get(0) != null) {
-				List<LatLng> latLngList = PolyUtil.decode(directions.routes.get(0).polyLine.points);
-				googleMap.addPolyline(new PolylineOptions().addAll(latLngList).color(Color.parseColor("#42BFEA")));
-				googleMap.moveCamera(getCameraUpdate(latLngList));
-			}
-		});
-	}
-
-	private CameraUpdate getCameraUpdate(List<LatLng> latLngList) {
-		LatLngBounds.Builder builder = new LatLngBounds.Builder();
-		for (LatLng latLng : latLngList) {
-			builder.include(latLng);
-		}
-		return CameraUpdateFactory.newLatLngBounds(builder.build(), 100);
-	}
-
-	private GoogleMap googleMap;
 
 	@SuppressLint("MissingPermission")
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mapsApi = retrofit.create(MapsApi.class);
-
 	}
 
 
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-				.findFragmentById(R.id.map);
-//		mapFragment.getMapAsync(this);
 	}
 
 	@Nullable
@@ -164,30 +90,7 @@ public class WorkTabFragment extends Fragment implements OnMapReadyCallback, Tab
 //		selectStarLocationView = view.findViewById(R.id.select_location);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 		recyclerView.setAdapter(new TabCardViewAdapter());
-
-//		startLocation = view.findViewById(R.id.start_location);
-//		endLocation = view.findViewById(R.id.end_location);
-//		endLocation.setLocationText("Picsart");
-//		endLocation.setEditable(false);
-//		startLocation.setProgressMode(true);
-//		startLocation.setOnEditClickListener(v -> {
-//
-//		});
-//
-//		endLocation.setOnEditClickListener(v -> {
-
-//		});
 	}
-
-	@Override
-	public void onMapReady(GoogleMap googleMap) {
-		this.googleMap = googleMap;
-		googleMap.getUiSettings().setScrollGesturesEnabled(false);
-		googleMap.setOnMapClickListener(latLng -> {
-
-		});
-	}
-
 
 	@Override
 	public void onDataUpdated(MainTabResponse mainTabResponse) {
